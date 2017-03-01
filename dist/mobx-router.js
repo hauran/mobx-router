@@ -425,7 +425,7 @@ var RouterStore = (_class = function () {
 
 var createDirectorRouter = function createDirectorRouter(views, store, init) {
   new director_build_director.Router(_extends({}, viewsForDirector(views, store))).configure({
-    html5history: true,
+    html5history: false,
     notfound: function notfound() {
       console.log('ERROR');
       window.history.back()
