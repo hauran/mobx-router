@@ -7,7 +7,10 @@ const createDirectorRouter = (views, store, init) => {
     ...viewsForDirector(views, store)
   }).configure({
     html5history: true,
-    notfound:() => console.log('ERROR')
+    notfound:(a,b,c,d) => {
+      debugger
+      console.log('ERROR')
+    }
   }).init(init);
 };
 
