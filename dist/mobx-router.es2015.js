@@ -420,7 +420,8 @@ var RouterStore = (_class = function () {
 var createDirectorRouter = function createDirectorRouter(views, store, init) {
   new Router(_extends({}, viewsForDirector(views, store))).configure({
     html5history: true,
-    notfound: function notfound() {
+    notfound: function notfound(a,b,c,d) {
+      debugger
       return console.log('ERROR');
     }
   }).init(init);
