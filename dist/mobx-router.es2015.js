@@ -422,7 +422,6 @@ var createDirectorRouter = function createDirectorRouter(views, store, init) {
     html5history: false,
     notfound: function notfound() {
       console.log('ERROR');
-      window.history.back()
     }
   }).init(init);
 };
