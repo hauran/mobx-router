@@ -19,7 +19,8 @@ class RouterStore {
       return;
     }
 
-    const rootViewChanged = !this.currentView || (this.currentView.rootPath !== view.rootPath);
+    // const rootViewChanged = !this.currentView || (this.currentView.rootPath !== view.rootPath);
+    const rootViewChanged = !this.currentView || (this.currentView !== view);
     const currentParams = toJS(this.params);
     const currentQueryParams = toJS(this.queryParams);
 

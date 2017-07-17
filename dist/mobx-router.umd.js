@@ -373,7 +373,8 @@ var RouterStore = (_class = function () {
         return;
       }
 
-      var rootViewChanged = !this.currentView || this.currentView.rootPath !== view.rootPath;
+      // const rootViewChanged = !this.currentView || (this.currentView.rootPath !== view.rootPath);
+      var rootViewChanged = !this.currentView || this.currentView !== view;
       var currentParams = mobx.toJS(this.params);
       var currentQueryParams = mobx.toJS(this.queryParams);
 
@@ -424,7 +425,7 @@ var createDirectorRouter = function createDirectorRouter(views, store, init) {
   new director_build_director.Router(_extends({}, viewsForDirector(views, store))).configure({
     html5history: true,
     notfound: function notfound() {
-      return console.log('ERROR');
+      console.log('ERROR');
     }
   }).init(init);
 };

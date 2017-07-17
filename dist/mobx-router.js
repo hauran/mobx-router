@@ -376,7 +376,8 @@ var RouterStore = (_class = function () {
         return;
       }
 
-      var rootViewChanged = !this.currentView || this.currentView.rootPath !== view.rootPath;
+      // const rootViewChanged = !this.currentView || (this.currentView.rootPath !== view.rootPath);
+      var rootViewChanged = !this.currentView || this.currentView !== view;
       var currentParams = mobx.toJS(this.params);
       var currentQueryParams = mobx.toJS(this.queryParams);
 
