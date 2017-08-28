@@ -2,7 +2,7 @@ import { action, autorun, computed, observable, toJS } from 'mobx';
 import queryString from 'query-string';
 import { Router } from 'director/build/director';
 import React from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -418,19 +418,12 @@ var RouterStore = (_class = function () {
   initializer: null
 }), _applyDecoratedDescriptor(_class.prototype, 'goTo', [action], Object.getOwnPropertyDescriptor(_class.prototype, 'goTo'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'currentPath', [computed], Object.getOwnPropertyDescriptor(_class.prototype, 'currentPath'), _class.prototype)), _class);
 
-var createDirectorRouter = function createDirectorRouter(views, store, init) {
-  new Router(_extends({}, viewsForDirector(views, store))).configure({
-    html5history: true,
-    notfound: function notfound() {
-      console.log('ERROR');
-    }
-  }).init(init);
+var createDirectorRouter = function createDirectorRouter(views, store, init, routerOverrides) {
+  new Router(_extends({}, viewsForDirector(views, store))).configure(_extends({ html5history: true }, routerOverrides || {})).init(init);
 };
-
-var startRouter = function startRouter(views, store, init) {
+var startRouter = function startRouter(views, store, init, routerOverrides) {
   //create director configuration
-  createDirectorRouter(views, store, init);
-
+  createDirectorRouter(views, store, init, routerOverrides);
   //autorun and watch for path changes
   autorun(function () {
     var currentPath = store.router.currentPath;
@@ -449,7 +442,7 @@ var MobxRouter = function MobxRouter(_ref) {
     router.currentView && router.currentView.component
   );
 };
-var MobxRouter$1 = observer(['store'], MobxRouter);
+var MobxRouter$1 = inject('store')(observer(MobxRouter));
 
 var Link = function Link(_ref) {
   var view = _ref.view,

@@ -1,22 +1,17 @@
 import {Router} from 'director/build/director';
 import {autorun} from 'mobx';
 import {viewsForDirector} from './utils';
-
-const createDirectorRouter = (views, store, init) => {
+const createDirectorRouter = (views, store, init, routerOverrides) => {
   new Router({
     ...viewsForDirector(views, store)
   }).configure({
-    html5history: true,
-    notfound:() => {
-      console.log('ERROR')
-    }
+    ...{ html5history: true},
+    ...routerOverrides || {}
   }).init(init);
 };
-
-const startRouter = (views, store, init) => {
+const startRouter = (views, store, init, routerOverrides) => {
   //create director configuration
-  createDirectorRouter(views, store, init);
-
+  createDirectorRouter(views, store, init, routerOverrides);
   //autorun and watch for path changes
   autorun(() => {
     const {currentPath} = store.router;
@@ -25,5 +20,4 @@ const startRouter = (views, store, init) => {
     }
   });
 };
-
 export default startRouter;
